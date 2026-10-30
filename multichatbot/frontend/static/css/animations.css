@@ -1,0 +1,293 @@
+/* ==============================================================================
+   MULTICHATBOT - ANIMATIONS & MOTION SYSTEM
+   Colors: Charcoal Gray (#242629), Moonlight Silver (#E6E8EB), Signal Red (#F04452)
+   ============================================================================== */
+
+/* --- 1. AI Orb Keyframes & Transforms --- */
+@keyframes orb-breathe {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 0 35px rgba(240, 68, 82, 0.25), inset 0 0 25px rgba(240, 68, 82, 0.35);
+  }
+  50% {
+    transform: scale(1.04) translateY(-6px);
+    box-shadow: 0 0 55px rgba(240, 68, 82, 0.45), inset 0 0 35px rgba(240, 68, 82, 0.55);
+  }
+}
+
+@keyframes orb-core-pulse {
+  0%, 100% {
+    transform: scale(0.92);
+    opacity: 0.85;
+    filter: drop-shadow(0 0 10px #F04452);
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 1;
+    filter: drop-shadow(0 0 24px #FF5A66);
+  }
+}
+
+@keyframes ring-rotate-x {
+  0% {
+    transform: rotateX(65deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(65deg) rotateY(0deg) rotateZ(360deg);
+  }
+}
+
+@keyframes ring-rotate-y {
+  0% {
+    transform: rotateX(30deg) rotateY(70deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(30deg) rotateY(70deg) rotateZ(-360deg);
+  }
+}
+
+@keyframes ring-rotate-z {
+  0% {
+    transform: rotateX(-45deg) rotateY(35deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(-45deg) rotateY(35deg) rotateZ(360deg);
+  }
+}
+
+@keyframes ring-rotate-diag {
+  0% {
+    transform: rotateX(50deg) rotateY(-40deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(50deg) rotateY(-40deg) rotateZ(-360deg);
+  }
+}
+
+/* --- AI Orb Interaction States --- */
+/* State 1: IDLE */
+.ai-orb.state-idle .orb-core {
+  animation: orb-core-pulse 4.5s ease-in-out infinite;
+}
+.ai-orb.state-idle .orb-ring:nth-child(1) {
+  animation: ring-rotate-x 16s linear infinite;
+}
+.ai-orb.state-idle .orb-ring:nth-child(2) {
+  animation: ring-rotate-y 20s linear infinite;
+}
+.ai-orb.state-idle .orb-ring:nth-child(3) {
+  animation: ring-rotate-z 24s linear infinite;
+}
+.ai-orb.state-idle .orb-ring:nth-child(4) {
+  animation: ring-rotate-diag 28s linear infinite;
+}
+
+/* State 2: LISTENING */
+.ai-orb.state-listening {
+  transform: scale(1.12);
+  box-shadow: 0 0 60px rgba(240, 68, 82, 0.6), inset 0 0 35px rgba(240, 68, 82, 0.5);
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.ai-orb.state-listening .orb-core {
+  animation: orb-core-pulse 1.8s ease-in-out infinite;
+  background: radial-gradient(circle, #FF5A66 15%, #F04452 65%, #C92F3D 100%);
+}
+.ai-orb.state-listening .orb-ring {
+  border-color: #E6E8EB !important;
+  box-shadow: 0 0 15px rgba(240, 68, 82, 0.45);
+}
+
+/* State 3: THINKING */
+.ai-orb.state-thinking {
+  box-shadow: 0 0 70px rgba(240, 68, 82, 0.75), inset 0 0 45px rgba(240, 68, 82, 0.7);
+}
+.ai-orb.state-thinking .orb-core {
+  animation: orb-core-pulse 0.9s ease-in-out infinite;
+}
+.ai-orb.state-thinking .orb-ring:nth-child(1) {
+  animation: ring-rotate-x 4s linear infinite;
+  border-color: #FF5A66 !important;
+}
+.ai-orb.state-thinking .orb-ring:nth-child(2) {
+  animation: ring-rotate-y 4.5s linear infinite;
+  border-color: #E6E8EB !important;
+}
+.ai-orb.state-thinking .orb-ring:nth-child(3) {
+  animation: ring-rotate-z 5s linear infinite;
+  border-color: #FF5A66 !important;
+}
+.ai-orb.state-thinking .orb-ring:nth-child(4) {
+  animation: ring-rotate-diag 5.5s linear infinite;
+  border-color: #D3D7DD !important;
+}
+
+/* State 4: RESPONDING */
+.ai-orb.state-responding {
+  box-shadow: 0 0 65px rgba(240, 68, 82, 0.55), inset 0 0 40px rgba(230, 232, 235, 0.3);
+}
+.ai-orb.state-responding .orb-core {
+  animation: orb-core-pulse 2s ease-in-out infinite;
+}
+.ai-orb.state-responding .orb-ring:nth-child(1) {
+  animation: ring-rotate-x 9s linear infinite;
+}
+.ai-orb.state-responding .orb-ring:nth-child(2) {
+  animation: ring-rotate-y 11s linear infinite;
+}
+.ai-orb.state-responding .orb-ring:nth-child(3) {
+  animation: ring-rotate-z 13s linear infinite;
+}
+.ai-orb.state-responding .orb-ring:nth-child(4) {
+  animation: ring-rotate-diag 15s linear infinite;
+}
+
+/* State 5: ERROR */
+.ai-orb.state-error {
+  box-shadow: 0 0 80px rgba(240, 68, 82, 0.9), inset 0 0 50px rgba(201, 47, 61, 0.9);
+  animation: shake 0.5s ease-in-out;
+}
+.ai-orb.state-error .orb-core {
+  background: #C92F3D !important;
+  box-shadow: 0 0 35px #F04452;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+/* --- 2. Landing Background Animations --- */
+@keyframes gradient-drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes ambient-glow-move {
+  0%, 100% {
+    transform: translate(-10%, -10%) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(15%, 15%) scale(1.25);
+    opacity: 0.55;
+  }
+}
+
+@keyframes ambient-glow-secondary {
+  0%, 100% {
+    transform: translate(10%, 10%) scale(1.15);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translate(-15%, -15%) scale(0.9);
+    opacity: 0.45;
+  }
+}
+
+/* --- 3. Message & UI Animations --- */
+@keyframes message-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.msg-animate-in {
+  animation: message-fade-up 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Typing Indicator Bounce */
+@keyframes dot-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-8px);
+    opacity: 1;
+    color: #F04452;
+  }
+}
+
+.typing-dot:nth-child(1) {
+  animation: dot-bounce 1.3s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) {
+  animation: dot-bounce 1.3s infinite ease-in-out 0.2s;
+}
+.typing-dot:nth-child(3) {
+  animation: dot-bounce 1.3s infinite ease-in-out 0.4s;
+}
+
+/* Glow pulse for active elements */
+@keyframes red-pulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(240, 68, 82, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(240, 68, 82, 0.7);
+  }
+}
+
+.glow-active {
+  animation: red-pulse 2s infinite ease-in-out;
+}
+
+/* Mic listening ring animation */
+@keyframes voice-listen-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(240, 68, 82, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(240, 68, 82, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(240, 68, 82, 0);
+  }
+}
+
+.voice-recording-active {
+  background-color: #F04452 !important;
+  color: #E6E8EB !important;
+  animation: voice-listen-pulse 1.4s infinite;
+}
+
+/* Modal Pop & Backdrop Fade */
+@keyframes modal-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-animate {
+  animation: modal-scale-in 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- 4. Reduced-Motion Accessibility --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
